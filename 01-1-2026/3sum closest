@@ -1,0 +1,29 @@
+int abs(int n) { return n > 0 ? n : -n; }
+int cmpAsc(const void *a, const void *b) { return *(int *)a - *(int *)b; }
+int threeSumClosest(int *nums, int numsSize, int target) {
+  qsort(nums, numsSize, sizeof(int), cmpAsc);
+  int a = 0, b, c; // a b-> ... <-c
+  int minABS = INT_MAX;
+  int rs;
+  while (a < numsSize - 2) {
+    b = a + 1;
+    c = numsSize - 1;
+    while (b < c) {
+      int sum = nums[a] + nums[b] + nums[c];
+      int tmpABS = abs(sum - target);
+      if (tmpABS < minABS) {
+        minABS = tmpABS;
+        rs = sum;
+      }
+      if (sum < target) {
+        b++;
+      } else if (sum > target) {
+        c--;
+      } else {
+        return target;
+      }
+    }
+    a++;
+  }
+  return rs;
+}
