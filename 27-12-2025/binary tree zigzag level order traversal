@@ -1,0 +1,35 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: List[List[int]]
+        """
+        if not root: #when the tree is empty
+            return []
+        q=[root] #initate with root value
+        r=[] #our result
+        f=True #this will tell when to add the reverse and when normal
+        while q:#till queue has some values
+            c=[] #current level
+            n=[] #next level
+            for i in q:
+                c.append(i.val) #store all at this level
+                if i.left: #store all of next level in next
+                    n.append(i.left)
+                if i.right:
+                    n.append(i.right)
+            if f: #check we have to add in normal or reverse
+                r.append(c)
+            else:
+                r.append(c[::-1])
+            f=not f #change flag for alternate 
+            q=n #update the queue with next level
+        return r #returned all traversed values!
+
+                
